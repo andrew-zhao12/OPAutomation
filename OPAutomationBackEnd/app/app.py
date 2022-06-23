@@ -7,15 +7,15 @@ from dotenv import load_dotenv
 from app.config import DevelopmentConfig
 import os
 
-from app.ma import ma
-from app.db import db
+# from app.ma import ma
+# from app.db import db
 
 from marshmallow import ValidationError
 
 from sqlalchemy.exc import IntegrityError
 
 
-migrate = Migrate(compare_type=True)
+# migrate = Migrate(compare_type=True)
 cors = CORS()
 apifairy = APIFairy()
 load_dotenv()
@@ -27,13 +27,13 @@ def create_app(config_class=DevelopmentConfig):
     app.config.from_object(config_class)
 
     # Initialize the db
-    db.init_app(app)
+    # db.init_app(app)
 
     # linking migrations to the app
-    migrate.init_app(app, db)
+    # migrate.init_app(app, db)
 
     # linking marshmallow to the
-    ma.init_app(app)
+    # ma.init_app(app)
 
     # enable CORS
     CORS(app)
@@ -56,6 +56,7 @@ def create_app(config_class=DevelopmentConfig):
     
     @app.errorhandler(Exception)
     def handle_error(e):
+        # print(e)
         if isinstance(e, ValidationError):
             return jsonify({"error":e.messages}), 400
 
