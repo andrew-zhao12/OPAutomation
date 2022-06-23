@@ -1,4 +1,4 @@
-adjunct_faculty_venv/
+venv/
 
 *.pyc
 __pycache__/
