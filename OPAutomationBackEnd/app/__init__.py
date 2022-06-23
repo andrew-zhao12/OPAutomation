@@ -1,1 +1,1 @@
-from app.app import create_app, db, ma  # noqa: F401
+from app.app import create_app # noqa: F401
