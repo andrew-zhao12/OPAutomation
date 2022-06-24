@@ -5,7 +5,6 @@ from apifairy import APIFairy
 from dotenv import load_dotenv
 
 from app.config import DevelopmentConfig
-import os
 
 # from app.ma import ma
 # from app.db import db
@@ -56,7 +55,7 @@ def create_app(config_class=DevelopmentConfig):
     
     @app.errorhandler(Exception)
     def handle_error(e):
-        # print(e)
+        print(e)
         if isinstance(e, ValidationError):
             return jsonify({"error":e.messages}), 400
 
