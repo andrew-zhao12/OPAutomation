@@ -11,3 +11,5 @@ Flask-Cors==3.0.10
 marshmallow_enum==1.5.1
 requests==2.27.1
 python-dotenv==0.19.2
+docx2pdf==0.1.8
+docx-mailmerge-0.5.0
