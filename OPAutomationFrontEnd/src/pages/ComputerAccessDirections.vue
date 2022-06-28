@@ -5,15 +5,21 @@
             <template slot="content">
             <md-tabs class="md-primary" md-alignment="centered" >
                 <md-tab id="tab-home" md-label="Generate" md-icon="play_circle">
-                <div class="md-layout-item md-size-50 abcs">
+                <div class="md-layout-item md-size-50">
+                    <div class="child">
                     <md-field>
-                        <md-file v-model="placeholder" placeholder="Choose file" />    
-                        <md-button class="md-primary" @click="upload">Generate files</md-button>
+                        <label>Upload file</label>
+                        <md-file v-model="single" @change="handleFileUpload( $event )"  />    
                     </md-field>
-                </div>
+                    </div>
+                    <div class="child">
+                    <md-button class="md-primary"  @click="upload">Generate files</md-button>
+                    <md-progress-spinner v-show="spinner_visiblity" class="md-primary" :md-diameter="30" :md-stroke="3" md-mode="indeterminate"></md-progress-spinner>
+                    </div>
+                  </div>
                 </md-tab>
-                
                 <md-tab id="tab-pages" md-label="Configure" md-icon="tune">
+                <Stepper/>
                 </md-tab>
             </md-tabs>
             </template>
@@ -27,37 +33,62 @@ import {
   NavTabsCard,
   Stepper
 } from "@/components";
+import axios from 'axios';
 
 export default {
   components: {
     NavTabsCard,
-    // Stepper
+    Stepper
   },
   data() {
     return {
-      active: 'first',
-      first: false,
-      second: false,
-      third: false,
-      secondStepError: null
+      placeholder:"",
+      single : null,
+      file: '',
+      spinner_visiblity: false
     };
   },
   methods: {
-      setDone (id, index) {
-        alert(id + ' ' + index);
-        this[id] = true
-
-        this.secondStepError = null
-
-        if (index) {
-          this.active = index
-        }
+      handleFileUpload( event ){
+        alert("called")
+        this.file = event.target.files[0];
+        event.target.files = []
       },
-      setError () {
-        this.secondStepError = 'This is an error!'
+      upload(){
+        this.spinner_visiblity = true
+        let formData = new FormData();
+        formData.append('file', this.file);
+        const baseURI = 'http://localhost:5000/computer_access_directions'
+        axios.post(baseURI,
+        formData,
+        {
+          headers: {
+              'Content-Type': 'multipart/form-data',
+
+          }
+        },
+        )
+        .then((response) => {
+          console.log(response)
+          this.spinner_visiblity = false
+          this.file = ""
+          this.single = null
+        })
       }
+      
     }
 };
 </script>
 
 
+<style lang="scss" scoped>
+  .md-progress-spinner {
+    margin: 13px 13px;
+  }
+  .child {
+  display: inline-block;
+  margin: 1rem;
+  vertical-align: middle;
+  width: auto;
+}
+</style>

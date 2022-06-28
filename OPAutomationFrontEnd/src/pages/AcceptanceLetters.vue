@@ -8,7 +8,7 @@
                 <div class="md-layout-item md-size-50">
                     <div class="child">
                     <md-field>
-                        <md-file v-model="placeholder" @change="handleFileUpload( $event )" placeholder="Choose file" />    
+                        <md-file ref="fileupload" v-model="placeholder" @change="handleFileUpload( $event )" placeholder="Choose file" />    
                     </md-field>
                     </div>
                     <div class="child">
@@ -73,6 +73,7 @@ export default {
           link.click()
           this.spinner_visiblity = false
           this.file = ""
+          this.$refs.fileupload.value=null
         })
       }
       
