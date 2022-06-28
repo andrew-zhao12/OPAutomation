@@ -8,7 +8,7 @@ from app.resources.utils import AcceptanceLetters
 
 acceptance_letters = Blueprint('acceptance_letters', __name__)
 
-@acceptance_letters.route("/acceptance_letters", methods= ['POST', 'GET'])
+@acceptance_letters.route("/acceptance_letters", methods= ['POST'])
 def generate_acceptance_letters():
     temp_folder_name = os.path.join(os.getenv("TEMP_FOLDER"), str(time.time_ns()))
     os.mkdir(temp_folder_name)
