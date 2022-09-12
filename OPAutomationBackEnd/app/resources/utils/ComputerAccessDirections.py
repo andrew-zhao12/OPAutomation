@@ -6,16 +6,16 @@ Created on Thu Jun  9 11:12:43 2022
 """
 
 # This program is to send email to the user
-from jinja2 import Environment
-import smtplib
-from email.mime.multipart import MIMEMultipart
+from jinja2 import Environment # jinja2 is a templating engine
+import smtplib # python tool to send emails
+from email.mime.multipart import MIMEMultipart # MIME helps fill out emails
 from email.mime.text import MIMEText
 import os
 import pandas as pd
 
 template_path = os.path.join(os.getenv("AUTOMATION_TEMPLATES"), "computer_access_directions", "template.html")
 
-
+# sends computer access directions to new students in email
 def send_email(to_email, user_name, b_id):
     print(to_email, user_name, b_id)
     fromaddr = 'bearcat.bulletin@gmail.com'
@@ -40,6 +40,7 @@ def send_email(to_email, user_name, b_id):
     server.sendmail(fromaddr, rcpt, msg.as_string())
     server.quit()
 
+# generates parameters for send email function
 def generate_computer_access_directions(data_file):
     # Reading data
     dataframe = pd.read_csv(data_file)

@@ -6,6 +6,7 @@ import zipfile
 import io
 from app.resources.utils import AcceptanceLetters
 
+# blueprint to organize group of related views
 acceptance_letters = Blueprint('acceptance_letters', __name__)
 
 @acceptance_letters.route("/acceptance_letters", methods= ['POST'])
@@ -14,7 +15,6 @@ def generate_acceptance_letters():
     os.mkdir(temp_folder_name)
     data_file = request.files["file"]
     if AcceptanceLetters.generate_acceptance_letters(data_file, temp_folder_name):
-
         memory_file = io.BytesIO()
         with zipfile.ZipFile(memory_file, 'w') as zf:
             files = os.listdir(temp_folder_name)

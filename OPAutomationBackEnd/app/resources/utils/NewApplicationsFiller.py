@@ -8,17 +8,15 @@ Created on Thu Jun  9 12:27:11 2022
 import os
 import pandas as pd
 
-from fillpdf import fillpdfs
-from sqlalchemy import true
-
-
+from fillpdf import fillpdfs # tool for manipulating pdfs
+from sqlalchemy import true # tool to load tables from database
 
 template_path = os.path.join(os.getenv("AUTOMATION_TEMPLATES"), "new_applications_filler", "OPElectronicCoversheet.pdf")
 
 
 def generate_new_applications(data_file, output_folder):
     dataframe =  pd.read_csv(data_file)
-    dataframe.dropna(inplace= True)
+    dataframe.dropna(inplace= True) # removes missing values
     for i in range(0, dataframe.shape[0]):
         data_dict = {
         'lastName': dataframe['Last Name'][i],
